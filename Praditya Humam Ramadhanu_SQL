@@ -1,0 +1,45 @@
+--Q1
+SELECT COUNT(*) 
+FROM film
+WHERE description LIKE '%stronaut%';
+
+--Q2
+SELECT COUNT(*) 
+FROM film
+WHERE rating = 'R'
+AND replacement_cost
+BETWEEN 5 AND 15;
+
+--Q3
+SELECT staff_id, COUNT(payment_id), SUM(amount)
+FROM payment
+GROUP BY staff_id;
+
+--Q4, angka avg kok aneh
+SELECT rating, AVG(replacement_cost) AS avg_replacement_cost
+FROM film
+GROUP BY rating;
+
+--Q5 
+SELECT first_name, last_name, email, SUM(amount) AS spend_amount
+FROM customer AS c
+INNER JOIN payment AS p
+ON c.customer_id = p.customer_id
+GROUP BY first_name,last_name,email
+ORDER BY spend_amount DESC
+LIMIT 5;
+
+--Q6 
+SELECT film_id, store_id, COUNT(inventory_id) AS movie_amount
+FROM inventory
+GROUP BY film_id, store_id
+ORDER BY film_id ASC;
+
+--Q7
+SELECT first_name, last_name, email
+FROM customer AS c
+INNER JOIN payment AS p
+ON c.customer_id = p.customer_id
+GROUP BY first_name,last_name,email
+HAVING COUNT(amount) >= 40;
+
